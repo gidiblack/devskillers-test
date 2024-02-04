@@ -81,33 +81,17 @@ export class ContactForm extends React.Component {
 
         <label className="form-label">Select your membership option:</label>
         <div class="form-group row">
-          <label className="form-label col-xs-4">
-            <input
-              type="radio"
-              name="option"
-              value="A"
-              onChange={(e) => this.fieldChange(e, "option")}
-            />{" "}
-            Option A
-          </label>
-          <label className="form-label col-xs-4">
-            <input
-              type="radio"
-              name="option"
-              value="B"
-              onChange={(e) => this.fieldChange(e, "option")}
-            />{" "}
-            Option B
-          </label>
-          <label className="form-label col-xs-4">
-            <input
-              type="radio"
-              name="option"
-              value="C"
-              onChange={(e) => this.fieldChange(e, "option")}
-            />{" "}
-            Option C
-          </label>
+          {this.options.map((option, i) => (
+            <label className="form-label col-xs-4" key={i}>
+              <input
+                type="radio"
+                name="option"
+                value={option.label}
+                onChange={(e) => this.fieldChange(e, "option")}
+              />{" "}
+              {option.label}
+            </label>
+          ))}
         </div>
 
         <hr />
