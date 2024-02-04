@@ -1,7 +1,12 @@
-import React from 'react';
+import React from "react";
 
-export const UserPanel = ({user}) => <div>
+export const UserPanel = ({ user }) => (
+  <div>
     <div>
-        <h3> <i className="glyphicon glyphicon-user"></i> Welcome, {user.name}</h3>
+      <h3>
+        {" "}
+        <i className="glyphicon glyphicon-user"></i> Welcome, {user.name}
+      </h3>
     </div>
-</div>;
+  </div>
+);

@@ -37,7 +37,7 @@ export class ContactForm extends React.Component {
     let target = event.target;
     let value = target.type === "checkbox" ? target.checked : target.value;
     let newData = this.props.data;
-    newData[field] = value;
+    newData[`${field}`] = value;
     this.props.onChange(newData);
   }
 
@@ -56,10 +56,10 @@ export class ContactForm extends React.Component {
     let data = this.props.data;
 
     return (
-      <form onSubmit={this.handleSubmit}>
+      <form onSubmit={(e) => this.handleSubmit(e)}>
         <h3>Contact Form</h3>
 
-        <div class="form-group">
+        <div className="form-group">
           <label className="form-label">Your Name:</label>
           <input
             name="name"
@@ -69,7 +69,7 @@ export class ContactForm extends React.Component {
           />
         </div>
 
-        <div class="form-group">
+        <div className="form-group">
           <label className="form-label">Your Best Email:</label>
           <input
             name="email"
@@ -80,34 +80,58 @@ export class ContactForm extends React.Component {
         </div>
 
         <label className="form-label">Select your membership option:</label>
-        <div class="form-group row">
-          {this.options.map((option, i) => (
-            <label className="form-label col-xs-4" key={i}>
-              <input
-                type="radio"
-                name="option"
-                value={option.label}
-                onChange={(e) => this.fieldChange(e, "option")}
-              />{" "}
-              {option.label}
-            </label>
-          ))}
+        <div className="form-group row">
+          <label className="form-label col-xs-4">
+            <input
+              type="radio"
+              name="options"
+              value="A"
+              onChange={(e) => this.fieldChange(e, "options")}
+              checked={(e) => this.isSelected("options", e.target.value)}
+            />{" "}
+            Option A
+          </label>
+          <label className="form-label col-xs-4">
+            <input
+              type="radio"
+              name="options"
+              value="B"
+              onChange={(e) => this.fieldChange(e, "options")}
+              checked={(e) => this.isSelected("options", e.target.value)}
+            />{" "}
+            Option B
+          </label>
+          <label className="form-label col-xs-4">
+            <input
+              type="radio"
+              name="options"
+              value="C"
+              onChange={(e) => this.fieldChange(e, "options")}
+              checked={(e) => this.isSelected("options", e.target.value)}
+            />{" "}
+            Option C
+          </label>
         </div>
 
         <hr />
 
-        <div class="form-group">
+        <div className="form-group">
           <label className="form-label">What can we help you with:</label>
           <select
             className="form-control"
             name="select"
             onChange={(e) => this.fieldChange(e, "select")}
+            value={data.select}
           >
-            <option value="1">I have question about my membership</option>
+            {this.options.map((option) => (
+              <option value={option.id} key={option.id}>
+                {option.label}
+              </option>
+            ))}
           </select>
         </div>
 
-        <div class="form-group">
+        <div className="form-group">
           <label className="form-label">Message:</label>
           <textarea
             name="message"
@@ -115,10 +139,11 @@ export class ContactForm extends React.Component {
             placeholder="Please type your question here"
             className="form-control"
             onChange={(e) => this.fieldChange(e, "message")}
+            value={data.message}
           />
         </div>
 
-        <div class="form-group">
+        <div className="form-group">
           <label className="form-label">
             {" "}
             <input
@@ -131,7 +156,12 @@ export class ContactForm extends React.Component {
           </label>
         </div>
 
-        <input type="submit" value="Send" className="contactform-submit" />
+        <input
+          type="submit"
+          value="Send"
+          className="contactform-submit"
+          onClick={(e) => this.handleSubmit(e)}
+        />
       </form>
     );
   }

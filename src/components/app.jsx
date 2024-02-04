@@ -41,6 +41,12 @@ export class App extends React.Component {
         email: "user@example.com",
       },
     });
+    this.setState({
+      contact: {
+        ...this.CONTACT_FORM_DEFAULTS,
+        ...this.state.currentUser,
+      },
+    });
   };
 
   render() {
@@ -49,7 +55,7 @@ export class App extends React.Component {
         <div className="row">
           <div className="col-md-12">
             {this.state.currentUser !== null ? (
-              <UserPanel user={this.state.currentUser.name} />
+              <UserPanel user={this.state.currentUser} />
             ) : (
               <div className="pull-right">
                 <button class="btn btn-default" onClick={this.logIn}>
@@ -60,7 +66,7 @@ export class App extends React.Component {
           </div>
         </div>
         {this.state.sent ? (
-          <Message />
+          <Message header={"Test Header"} text={"Test Message"} />
         ) : (
           <div className="row">
             <div className="col-md-4">
